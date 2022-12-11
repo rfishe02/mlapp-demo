@@ -1,4 +1,6 @@
 .DS_Store
 /data
 /logs
+/cache
+/output
 embeddings_bidir_gru_with_masking.keras
