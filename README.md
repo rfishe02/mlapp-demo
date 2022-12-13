@@ -10,3 +10,4 @@ Flask and cloud services are a great choice for small-scale projects. As an illu
 
 # Sources
 - Chapter 9. Scalable Inference Serving on Cloud with TensorFlow Serving and KubeFlow, Practical Deep Learning for Cloud, Mobile, and Edge by Anirudh Koul, Meher Kasam, and Siddha Ganju.
+- Load pretrained instances with an AutoClass, Accessed at: https://huggingface.co/docs/transformers/autoclass_tutorial
