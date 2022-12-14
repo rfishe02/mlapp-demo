@@ -9,11 +9,22 @@ import re
 
 app = Flask(__name__)
 
-# Load the model from the directory.
-model = AutoModelForCausalLM.from_pretrained('./model')
+# Load the model.
+# Try to load the fine tuned model from the directory.
+#  If you haven't run the notebook it will default to the pretrained GPT-2 model.
+try:
+    model = AutoModelForCausalLM.from_pretrained('./model')
+except:
+    model = AutoModelForCausalLM.from_pretrained('gpt2')
 
-# Load the tokenizer from the directory.
-tokenizer = AutoTokenizer.from_pretrained('./tokenizer')
+# Load the tokenizer.
+# Try to load the fine tuned tokenizer from the directory.
+# If you haven't run the notebook it will default to the original GPT-2 tokenizer.
+try:
+    tokenizer = AutoTokenizer.from_pretrained('./tokenizer')
+
+except:
+    tokenizer = AutoTokenizer.from_pretrained('gpt2')
 
 @app.route("/")
 def index():
@@ -28,37 +39,43 @@ def predict():
     start = request.form['prompt']
 
     if start is not None:
+        if len(start) > 0:
 
-        num_sequences =  5
-        min_length =  50
-        max_length =  100
-        temperature = 0.75
-        top_p = 0.95
-        top_k = 75
-        repetition_penalty =  1
+            num_sequences =  5
+            min_length =  50
+            max_length =  100
+            temperature = 0.75
+            top_p = 0.95
+            top_k = 75
+            repetition_penalty =  1
 
-        # Tokenize the starting prompt with the GPT-2 tokenizer we created earlier.
-        tokenized_prompt = tokenizer(start, return_tensors="pt")
+            # Tokenize the starting prompt with the GPT-2 tokenizer we created earlier.
+            tokenized_prompt = tokenizer(start, return_tensors="pt")
 
-        encoded_prompt = tokenized_prompt.input_ids.to(model.device)
-        attention_mask = tokenized_prompt.attention_mask.to(model.device)
+            encoded_prompt = tokenized_prompt.input_ids.to(model.device)
+            attention_mask = tokenized_prompt.attention_mask.to(model.device)
 
-        # Create a series of predictions with our encoded prompt, attention mask, and other variables.
-        output_sequences = model.generate(
-            input_ids=encoded_prompt,
-            attention_mask=attention_mask,
-            max_length=max_length,
-            min_length=min_length,
-            temperature=float(temperature),
-            top_p=float(top_p),
-            top_k=int(top_k),
-            do_sample=True,
-            repetition_penalty=repetition_penalty,
-            num_return_sequences=num_sequences)
+            # Create a series of predictions with our encoded prompt, attention mask, and other variables.
+            output_sequences = model.generate(
+                input_ids=encoded_prompt,
+                attention_mask=attention_mask,
+                max_length=max_length,
+                min_length=min_length,
+                temperature=float(temperature),
+                top_p=float(top_p),
+                top_k=int(top_k),
+                do_sample=True,
+                repetition_penalty=repetition_penalty,
+                num_return_sequences=num_sequences)
 
-        # Use the post_process function to clean up predictions, then append these to the outgoing message.
-        for s in post_process(output_sequences):
-            message += s + "<br><br>"
+            # Use the post_process function to clean up predictions, then append these to the outgoing message.
+            for s in post_process(output_sequences):
+                message += s + "<br><br>"
+
+        else:
+            message = "Prompt is too short."
+    else:
+        message = "Error retrieving form data."
 
     return {
         "status":200,
