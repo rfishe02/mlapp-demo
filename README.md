@@ -11,8 +11,9 @@ Flask and cloud services are great choices for small-scale projects. As an illus
 First, run the cells in model.ipynb to fine tune a pre-trained GPT-2 model from Huggingface and save it. Then, run api.py to serve the saved model.
 
 # Sources
-- Chapter 9. Scalable Inference Serving on Cloud with TensorFlow Serving and KubeFlow, Practical Deep Learning for Cloud, Mobile, and Edge by Anirudh Koul, Meher Kasam, and Siddha Ganju.
+- Chapter 9: Scalable Inference Serving on Cloud with TensorFlow Serving and KubeFlow, Practical Deep Learning for Cloud, Mobile, and Edge by Anirudh Koul, Meher Kasam, and Siddha Ganju.
 - Code for Chapter 9: Scalable Inference Serving on Cloud with TensorFlow Serving and KubeFlow, Accessed at: https://github.com/PracticalDL/Practical-Deep-Learning-Book/tree/master/code/chapter-9
 - Load pretrained instances with an AutoClass, Accessed at: https://huggingface.co/docs/transformers/autoclass_tutorial
 - Quickstart - Flask Documentation (2.2.x), Accessed at: https://flask.palletsprojects.com/en/2.2.x/quickstart/
-- JavaScript Cookbook by Adam D. Scott, Matthew MacDonald & Shelley Powers
+- Get started with Bootstrap - Bootstrap v5.2, Accessed at: https://getbootstrap.com/docs/5.2/getting-started/introduction/
+- Chapter 13: Fetching Remote Data, JavaScript Cookbook by Adam D. Scott, Matthew MacDonald & Shelley Powers
