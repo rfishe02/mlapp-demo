@@ -1,7 +1,6 @@
 .DS_Store
 /data
 /model
-/logs
+/tokenizer
 /cache
 /output
-embeddings_bidir_gru_with_masking.keras

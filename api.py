@@ -1,14 +1,20 @@
 
-import flask
-import tensorflow as tf
-from tensorflow import keras
-from keras.models import load_model
-from keras.utils import img_to_array
-from PIL import Image
-import numpy as np
-import io
+from flask import Flask, render_template
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
+
+# Load the model from the directory.
+model = AutoModelForCausalLM.from_pretrained('./model')
+
+# Load the tokenizer from the directory.
+tokenizer = AutoTokenizer.from_pretrained('./tokenizer')
+
+@app.route("/")
+def index():
+
+    # Find the index.html file in the templates folder and serve it.
+    return render_template("index.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():
