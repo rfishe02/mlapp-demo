@@ -20,7 +20,6 @@ except:
 # It will default to the original GPT-2 tokenizer.
 try:
     tokenizer = AutoTokenizer.from_pretrained('./tokenizer')
-
 except:
     tokenizer = AutoTokenizer.from_pretrained('gpt2')
 
