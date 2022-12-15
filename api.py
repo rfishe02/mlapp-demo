@@ -9,17 +9,15 @@ import re
 
 app = Flask(__name__)
 
-# Load the model.
-# Try to load the fine tuned model from the directory.
-#  If you haven't run the notebook it will default to the pretrained GPT-2 model.
+# Load the fine tuned model saved at /model.
+# If you haven't run the notebook, it will default to the pre-trained GPT-2 model.
 try:
     model = AutoModelForCausalLM.from_pretrained('./model')
 except:
     model = AutoModelForCausalLM.from_pretrained('gpt2')
 
-# Load the tokenizer.
-# Try to load the fine tuned tokenizer from the directory.
-# If you haven't run the notebook it will default to the original GPT-2 tokenizer.
+# Load the tokenizer saved at /tokenizer.
+# It will default to the original GPT-2 tokenizer.
 try:
     tokenizer = AutoTokenizer.from_pretrained('./tokenizer')
 
@@ -36,6 +34,8 @@ def index():
 def predict():
 
     message = ""
+
+    # Get the value of the input named prompt from the form data in the request object.
     start = request.form['prompt']
 
     if start is not None:
@@ -49,7 +49,7 @@ def predict():
             top_k = 75
             repetition_penalty =  1
 
-            # Tokenize the starting prompt with the GPT-2 tokenizer we created earlier.
+            # Tokenize the prompt with our tokenizer.
             tokenized_prompt = tokenizer(start, return_tensors="pt")
 
             encoded_prompt = tokenized_prompt.input_ids.to(model.device)
@@ -78,7 +78,6 @@ def predict():
         message = "Error retrieving form data."
 
     return {
-        "status":200,
         "message":message
     }
 

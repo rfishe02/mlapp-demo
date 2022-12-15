@@ -20,10 +20,11 @@
                 <div class="row mb-3">
                     <div class="col-6">
 
-                        <!-- Create a an input for our prompt, the text that we'll use to generate more text. -->
+                        
                         <label for="prompt" class="form-label">Starting Prompt</label>
     
-                        <!-- Don't forget to include name attribute too. -->
+                        <!-- Create a an input for our model, which will be used to generate more text.
+                        Add a name attribute so we can retreive the input value in api.py. -->
                         <input type="text" class="form-control" id="prompt" name="prompt">
 
                     </div>
@@ -49,13 +50,14 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-        <!-- Create the script below to avoid accessing elements that don't exist. -->
+        <!-- Create the script below the form avoid accessing elements that don't exist. -->
         <script>
 
             const promptForm = document.getElementById('prompt-form');
 
-            /* NOTE: If you can't resolve the 'localhost' keyword, trying changing the port in the api.py file. 
-            There may be something running locally that's already using the same port. */
+            /* NOTE: If you can't resolve the 'localhost' keyword, there may be a local that's process using the same port.
+            Check if you're already running Flask or change the port in the api.py file.
+            */
             const url = 'http://localhost:5050/predict';
 
             // Watch for the 'submit' event from our prompt form.
@@ -74,7 +76,7 @@
                         body: formData
                     });
 
-                    // Wait for the response, then use it to display text.
+                    // Wait for the response, then convert the json into an object.
                     const result = await response.json();
 
                     // Append the output to the innerHTML of a div in the body.
@@ -82,7 +84,7 @@
                     outputArea.innerHTML = "Results:<br>" + result.message;
 
                 } catch(e) {
-                    console.log(e)
+                    alert(e)
                 }
                 
             });
