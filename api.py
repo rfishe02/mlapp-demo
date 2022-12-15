@@ -97,11 +97,11 @@ def post_process(output_sequences):
         # Remove certain tokens like non ASCII characters, C0 controls, and some punctuation.
         res = re.sub(r'[^\u0000-\u007F]|[\u0000-\u0008\u000E-\u001F\u007F\u0022]',' ',str(g))
 
-        # Replace multiple newlines with a single one.
-        res = re.sub(r'(\u0020*[\u000A-\u000D])+','<br>',res)
-
         # Replace multiple spaces with a single one.
         res = re.sub(r'[\u0009\u0020]+',' ',res)
+
+        # Replace multiple newlines with a single one.
+        res = re.sub(r'(\u0020*[\u000A-\u000D])+','<br>',res)
 
         predictions.append(res.strip())
 
